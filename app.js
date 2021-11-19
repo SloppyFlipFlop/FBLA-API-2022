@@ -11,11 +11,11 @@ const connectDB = require("./database/connect");
 // middleware
 
 // const notFound = require("./middleware/not-found");
-// const errorHandlerMiddleware = require("./middleware/error-handler");
-// const authenticationMiddleware = require("./middleware/auth");
+const errorHandlerMiddleware = require("./middleware/error-handler");
+const authenticationMiddleware = require("./middleware/auth");
 
 // Routes
-const userRouter = require("./routes/attraction-router");
+const attractionRouter = require("./routes/attraction-router");
 const authRouter = require("./routes/auth-router");
 
 // sercurity libraries
@@ -27,7 +27,7 @@ const cors = require("cors");
 // swaggerUI
 const YAML = require("yamljs");
 const swaggerUI = require("swagger-ui-express");
-// const swaggerDocument = YAML.load("./swagger.yaml");
+const swaggerDocument = YAML.load("./swagger.yaml");
 
 // variables
 const minutes = 1000 * 60;
@@ -63,7 +63,7 @@ const startServer = async () => {
       .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
       .use("/api/v1/auth", authRouter)
-      .use("/api/v1/attraction", authenticationMiddleware, attractionRouter)
+      .use("/api/v1/attractions", authenticationMiddleware, attractionRouter)
 
       // app.use(notFound);
       .use(errorHandlerMiddleware)
