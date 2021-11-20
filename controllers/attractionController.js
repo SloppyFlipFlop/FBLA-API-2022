@@ -1,9 +1,13 @@
 const { StatusCodes } = require("http-status-codes");
 
-
+const Attraction = require("../models/attraction");
 
 
 const createAttraction = async (req, res) => {
+  // req.body.createdBy = req.user.userID;
+  // const attraction = await Attraction.create(req.body);
+
+  // res.status(StatusCodes.CREATED).json({ attraction });
   res.status(StatusCodes.OK).json({ msg: 'createAttraction' })
 }
 
