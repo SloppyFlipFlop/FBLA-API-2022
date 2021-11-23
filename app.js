@@ -57,16 +57,16 @@ const startServer = async () => {
 
       .get("/", (req, res) => {
         console.log(req)
-        res.send('<h1>Job API</h1><a href="/api-docs">Documention</a>');
+        // res.send('<h1>Job API</h1><a href="/api-docs">Documention</a>');
       })
 
-      .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+      // .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
       .use("/api/v1/auth", authRouter)
       .use("/api/v1/attractions", authenticationMiddleware, attractionRouter)
 
       // app.use(notFound);
-      .use(errorHandlerMiddleware)
+      // .use(errorHandlerMiddleware)
 
       .listen(port, () => {
         console.log(`LISTENING => ${port}`);

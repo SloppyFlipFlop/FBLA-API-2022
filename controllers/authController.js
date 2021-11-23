@@ -19,6 +19,7 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   
 	const {email, password} = req.body;
+
 	if(!email || !password) {
 		throw new BadRequestError("fields cannot be left blank");
 	}
@@ -26,7 +27,6 @@ const login = async (req, res) => {
 	const userLogin = await User.findOne({email});
 
 	if(!userLogin) {
-		
 		throw new UnauthError("Invaild Credentials");
 	}
 
