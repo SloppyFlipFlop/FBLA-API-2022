@@ -77,7 +77,12 @@ const attractionSchema = new mongoose.Schema({
     child:{
       type: Number,
       default: 0,
-    }
+    },
+    specials: [{
+      type: String,
+      require: false,
+      default: "",
+    }]
   },
   timeStamp: {
 		type: Date,
