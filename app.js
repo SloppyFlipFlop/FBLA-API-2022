@@ -66,7 +66,7 @@ const startServer = async () => {
       .use("/api/v1/attractions", authenticationMiddleware, attractionRouter)
 
       // app.use(notFound);
-      // .use(errorHandlerMiddleware)
+      .use(errorHandlerMiddleware)
 
       .listen(port, () => {
         console.log(`LISTENING => ${port}`);
