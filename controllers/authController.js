@@ -4,18 +4,18 @@ require("dotenv").config();
 const JWT = require("jsonwebtoken");
 
 const { StatusCodes } = require("http-status-codes");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 
 const register = async (req, res) => {
 	// Hashing - hashing a string through a formula to get back a completely different string.
 	// salting - adding a random string of numbers to the start of the string to make it harder to guess.
 	// peppering - adding a random letter [a-zA-Z] to the end of a string to make it harder to guess.
 
-	const { password } = req.body;
+	// const { password } = req.body;
 	// const salt = await bcrypt.genSalt(10);
 	// const hashedPassword = await bcrypt.hash(password, salt);
 
-	const newUser = await User.create({ ...req.body, password });
+	const newUser = await User.create(req.body);
 	const token = newUser.createJWT()
 	res.status(StatusCodes.CREATED).json({ user: newUser.name, userID: newUser._id, token });
 };
