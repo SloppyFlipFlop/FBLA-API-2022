@@ -1,0 +1,351 @@
+openapi: 3.0.0
+info:
+  title: FBLA-API-2022
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://fbla-api-2022.herokuapp.com/api/v1
+  variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+      - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              email: david.nevarez@hotmail.com
+              password: 878bh$%njn656()%
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/register:
+    post:
+      tags:
+      - Auth
+      summary: register
+      operationId: register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/registerrequest'
+            example:
+              name: David
+              email: david.nevarez@hotmail.com
+              password: 878bh$%njn656()%
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /attractions:
+    post:
+      tags:
+      - Attractions
+      summary: create Attraction
+      operationId: createAttraction
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createAttractionRequest'
+            example:
+              name: Home
+              website: https://www.goHome.org/
+              description: Sometimes i just want to go to bed and eat a sandwhich, do we all?
+              location: 420 AZ-69, Pine, AZ 12345
+              number: (620) 420-6969
+              cost:
+                adult: '0'
+                child: '0'
+              hours:
+                opens: '1400'
+                closes: '1630'
+                daysOpened:
+                - Wednesday
+                - Thursday
+                - Saturday
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Attractions
+      summary: Get All Attractions
+      operationId: GetAllAttractions
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /attractions/{id}:
+    put:
+      tags:
+      - Attractions
+      summary: Update Attraction
+      operationId: UpdateAttraction
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 619d75b244b661497f55da83
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAttractionRequest'
+            example:
+              name: Native American Ruins
+              type:
+              - historic-landmark
+              - historic
+              - museum
+              website: ''
+              description: Ancient Indian Ruins can be found and enjoyed throughout the state of Arizona but some of the greatest concentration of prehistoric cliff dwellings, ancient villages and pueblos are in Gila County, Arizona.
+              location: 31 Kokopeli Ln, Pine, AZ 85544
+              cost:
+                adult: '0'
+                child: '0'
+              hours:
+                opens: ''
+                closes: ''
+                daysOpened: []
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - Attractions
+      summary: Delete Attraction
+      operationId: DeleteAttraction
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 619c2a9afef8f94755cf46e9
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Attractions
+      summary: Get Attraction
+      operationId: GetAttraction
+      parameters:
+      - name: id
+        in: path
+        description: ''
+        required: true
+        style: simple
+        schema:
+          type: string
+          example: 619c299dfef8f94755cf46e7
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    LoginRequest:
+      title: LoginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: david.nevarez@hotmail.com
+        password: 878bh$%njn656()%
+    registerrequest:
+      title: registerrequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: David
+        email: david.nevarez@hotmail.com
+        password: 878bh$%njn656()%
+    createAttractionRequest:
+      title: createAttractionRequest
+      required:
+      - name
+      - website
+      - description
+      - location
+      - number
+      - cost
+      - hours
+      type: object
+      properties:
+        name:
+          type: string
+        website:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        number:
+          type: string
+        cost:
+          $ref: '#/components/schemas/Cost'
+        hours:
+          $ref: '#/components/schemas/Hours'
+      example:
+        name: Home
+        website: https://www.goHome.org/
+        description: Sometimes i just want to go to bed and eat a sandwhich, do we all?
+        location: 420 AZ-69, Pine, AZ 12345
+        number: (620) 420-6969
+        cost:
+          adult: '0'
+          child: '0'
+        hours:
+          opens: '1400'
+          closes: '1630'
+          daysOpened:
+          - Wednesday
+          - Thursday
+          - Saturday
+    Cost:
+      title: Cost
+      required:
+      - adult
+      - child
+      type: object
+      properties:
+        adult:
+          type: string
+        child:
+          type: string
+      example:
+        adult: '0'
+        child: '0'
+    Hours:
+      title: Hours
+      required:
+      - opens
+      - closes
+      - daysOpened
+      type: object
+      properties:
+        opens:
+          type: string
+        closes:
+          type: string
+        daysOpened:
+          type: array
+          items:
+            type: string
+          description: ''
+      example:
+        opens: '1400'
+        closes: '1630'
+        daysOpened:
+        - Wednesday
+        - Thursday
+        - Saturday
+    UpdateAttractionRequest:
+      title: UpdateAttractionRequest
+      required:
+      - name
+      - type
+      - website
+      - description
+      - location
+      - cost
+      - hours
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: array
+          items:
+            type: string
+          description: ''
+        website:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        cost:
+          $ref: '#/components/schemas/Cost'
+        hours:
+          $ref: '#/components/schemas/Hours'
+      example:
+        name: Native American Ruins
+        type:
+        - historic-landmark
+        - historic
+        - museum
+        website: ''
+        description: Ancient Indian Ruins can be found and enjoyed throughout the state of Arizona but some of the greatest concentration of prehistoric cliff dwellings, ancient villages and pueblos are in Gila County, Arizona.
+        location: 31 Kokopeli Ln, Pine, AZ 85544
+        cost:
+          adult: '0'
+          child: '0'
+        hours:
+          opens: ''
+          closes: ''
+          daysOpened: []
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Auth
+- name: Attractions
