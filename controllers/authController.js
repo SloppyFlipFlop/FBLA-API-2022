@@ -12,12 +12,12 @@ const register = async (req, res) => {
 	// peppering - adding a random letter [a-zA-Z] to the end of a string to make it harder to guess.
 
 	const { password } = req.body;
-	const salt = await bcrypt.genSalt(10);
-	const hashedPassword = await bcrypt.hash(password, salt);
+	// const salt = await bcrypt.genSalt(10);
+	// const hashedPassword = await bcrypt.hash(password, salt);
 
-	const newUser = await User.create({ ...req.body, password: hashedPassword });
+	const newUser = await User.create({ ...req.body, password });
 	const token = newUser.createJWT()
-	res.status(StatusCodes.CREATED).json({ newUser }).json({ user: newUser.name, userID: newUser._id, token });
+	res.status(StatusCodes.CREATED).json({ user: newUser.name, userID: newUser._id, token });
 };
 
 const login = async (req, res) => {
