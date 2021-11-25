@@ -1,23 +1,14 @@
-const express = require("express")
+const express = require("express");
 
-const { createAttraction,
+const {
+  createAttraction,
   deleteAttraction,
   getAttraction,
   getAllAttraction,
-  updateAttraction } = require("../controllers/attractionController");
+  updateAttraction,
+} = require("../controllers/attractionController");
 
 const attractionRouter = express.Router();
-
-
-/*
-Attraction
-ATTRACTION
-create attraction - post
-delete attraction - delete
-get attraction - get
-get all attraction - get
-update attraction - patch/put
-*/
 
 attractionRouter.route("/").post(createAttraction);
 attractionRouter.route("/").get(getAllAttraction);

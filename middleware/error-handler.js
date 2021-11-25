@@ -3,7 +3,6 @@ const { StatusCodes } = require("http-status-codes");
 
 const errorHandlerMiddleware = (err, req, res, next) => {
   // every error that happens on my app will go through this middleware
-  // return res.json({ err });
 
   // this is a custom error, so that i can deal with any error
   let customError = {

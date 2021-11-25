@@ -3,13 +3,12 @@ const { BadRequestError, NotFoundError } = require("../errors");
 
 const Attraction = require("../models/attraction");
 
-
 const createAttraction = async (req, res) => {
   req.body.createdBy = req.user.userID;
   const attraction = await Attraction.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ attraction });
-}
+};
 
 const deleteAttraction = async (req, res) => {
   const {
@@ -19,37 +18,32 @@ const deleteAttraction = async (req, res) => {
 
   const attraction = await Attraction.findByIdAndRemove({ _id: attractionID });
 
-  if(!attraction) {
-    throw new NotFoundError(`No attraction with id: ${attractionID} found.`)
+  if (!attraction) {
+    throw new NotFoundError(`No attraction with id: ${attractionID} found.`);
   }
 
-  res.status(StatusCodes.OK).json({attraction})
-}
+  res.status(StatusCodes.OK).json({ attraction });
+};
 
 const getAttraction = async (req, res) => {
-
   const {
-    params: { id: attractionID}
+    params: { id: attractionID },
   } = req;
 
-  const attraction = await Attraction.findById( attractionID );
+  const attraction = await Attraction.findById(attractionID);
 
   if (!attraction) {
     throw new NotFoundError(`No attraction with the ID: ${attractionID}`);
   }
 
   res.status(StatusCodes.OK).json({ attraction });
-}
+};
 
 const getAllAttraction = async (req, res) => {
-  const attractions = await Attraction.find({  }).sort(
-    "Created at"
-  );
+  const attractions = await Attraction.find({}).sort("Created at");
 
-  // createdBy: req.user.userID
   res.status(StatusCodes.OK).json({ attractions, length: attractions.length });
-  // res.status(StatusCodes.OK).json({ msg: 'getAllAttraction' })
-}
+};
 
 const updateAttraction = async (req, res) => {
   const {
@@ -59,12 +53,14 @@ const updateAttraction = async (req, res) => {
   } = req;
 
   if (!name || !type || !description || !location) {
-    throw new BadRequestError("Every attraction needs to have a name, type, description, and location. So please make sure they have all of them.");
+    throw new BadRequestError(
+      "Every attraction needs to have a name, type, description, and location. So please make sure they have all of them."
+    );
   }
 
   const attraction = await Attraction.findByIdAndUpdate(
     { _id: attractionID }, // How we are finding the attraction
-    req.body,  // Whats changing in the attraction
+    req.body, // Whats changing in the attraction
     { new: true, runValidators: true } // options
   );
 
@@ -73,7 +69,12 @@ const updateAttraction = async (req, res) => {
   }
 
   res.status(StatusCodes.OK).json({ attraction });
-  // res.status(StatusCodes.OK).json({ msg: 'updateAttraction' })
-}
+};
 
-module.exports = { createAttraction, deleteAttraction, getAttraction, getAllAttraction, updateAttraction }
+module.exports = {
+  createAttraction,
+  deleteAttraction,
+  getAttraction,
+  getAllAttraction,
+  updateAttraction,
+};

@@ -1,4 +1,3 @@
-
 // enviroment setup
 require("dotenv").config();
 require("express-async-errors");
@@ -9,8 +8,6 @@ const app = express();
 const connectDB = require("./database/connect");
 
 // middleware
-
-// const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const authenticationMiddleware = require("./middleware/auth");
 
@@ -35,7 +32,6 @@ const limit = 15 * minutes;
 
 const port = process.env.PORT || 3000;
 
-
 const startServer = async () => {
   try {
     await connectDB(process.env.MONGO_URL);
@@ -56,16 +52,15 @@ const startServer = async () => {
       .use(xss())
 
       .get("/", (req, res) => {
-        console.log(req)
+        console.log(req);
         res.send('<h1>Attraction API</h1><a href="/api-docs">Documention</a>');
       })
 
-      .use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
+      .use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
       .use("/api/v1/auth", authRouter)
       .use("/api/v1/attractions", authenticationMiddleware, attractionRouter)
 
-      // app.use(notFound);
       .use(errorHandlerMiddleware)
 
       .listen(port, () => {
