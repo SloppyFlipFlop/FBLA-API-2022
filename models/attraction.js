@@ -11,8 +11,8 @@ const attractionSchema = new mongoose.Schema({
       required: true,
       enum: {
         values: [
-          "hiking",
-          "biking",
+          "hiking-trail",
+          "biking-trail",
           "adult-only",
           "local-event",
           "family-friendly",
@@ -23,6 +23,10 @@ const attractionSchema = new mongoose.Schema({
           "shop",
           "food",
           "restaurant",
+          "dining",
+          "fishing",
+          "hunting",
+          "lake",
           "bar",
           "camp",
         ],
