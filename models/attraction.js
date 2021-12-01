@@ -29,8 +29,10 @@ const attractionSchema = new mongoose.Schema({
           "lake",
           "bar",
           "camp",
+          "local-business",
+          "business"
         ],
-        message: `{Value} is not supported`,
+        message: `{Value} is not supported. Also make sure that there are: no spaces in your type string and every letter is lowercase`,
       },
     },
   ],
